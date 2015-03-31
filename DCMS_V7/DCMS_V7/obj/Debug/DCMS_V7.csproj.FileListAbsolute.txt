@@ -1,0 +1,7 @@
+c:\users\wael\documents\visual studio 2013\Projects\DCMS_V7\DCMS_V7\bin\DCMS_V7.dll.config
+c:\users\wael\documents\visual studio 2013\Projects\DCMS_V7\DCMS_V7\bin\DCMS_V7.dll
+c:\users\wael\documents\visual studio 2013\Projects\DCMS_V7\DCMS_V7\bin\DCMS_V7.pdb
+c:\users\wael\documents\visual studio 2013\Projects\DCMS_V7\DCMS_V7\obj\Debug\DCMS_V7.csprojResolveAssemblyReference.cache
+c:\users\wael\documents\visual studio 2013\Projects\DCMS_V7\DCMS_V7\obj\Debug\DCMS_V7.dll
+c:\users\wael\documents\visual studio 2013\Projects\DCMS_V7\DCMS_V7\obj\Debug\DCMS_V7.pdb
+C:\Users\WAEL\documents\visual studio 2013\Projects\DCMS_V7\DCMS_V7\obj\Debug\DCMS_V7.dll.licenses

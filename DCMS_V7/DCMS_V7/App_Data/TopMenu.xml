@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<items>
+  <item Text="Home" NavigateUrl="Default.aspx" />
+  <item Text="Patient Manager" NavigateUrl="Patient_manager.aspx"  />
+  <item Text="Admin Panel" NavigateUrl="Admin_panel.aspx"  />
+</items>

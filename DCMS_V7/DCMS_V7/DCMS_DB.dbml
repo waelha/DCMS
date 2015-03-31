@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="C:\PROGRAM FILES\MICROSOFT SQL SERVER\MSSQL11.SQLEXPRESS\MSSQL\DATA\DCMS.MDF" Class="DCMS_DBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=WAEL_VAIO\SQLEXPRESS;Initial Catalog=&quot;C:\PROGRAM FILES\MICROSOFT SQL SERVER\MSSQL11.SQLEXPRESS\MSSQL\DATA\DCMS.MDF&quot;;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="C__PROGRAM_FILES_MICROSOFT_SQL_SERVER_MSSQL11_SQLEXPRESS_MSSQL_DATA_DCMS_MDFConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.City" Member="Cities">
+    <Type Name="City">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CountryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="City_Patient" Member="Patients" ThisKey="ID" OtherKey="City" Type="Patient" />
+      <Association Name="City_SysUser" Member="SysUsers" ThisKey="ID" OtherKey="City" Type="SysUser" />
+      <Association Name="Country_City" Member="Country" ThisKey="CountryID" OtherKey="ID" Type="Country" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Country" Member="Countries">
+    <Type Name="Country">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Country_City" Member="Cities" ThisKey="ID" OtherKey="CountryID" Type="City" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Doctor" Member="Doctors">
+    <Type Name="Doctor">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DoB" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Doctor_RequestedItem" Member="RequestedItems" ThisKey="ID" OtherKey="DoctorID" Type="RequestedItem" />
+      <Association Name="Doctor_Treatment" Member="Treatments" ThisKey="ID" OtherKey="DoctorID" Type="Treatment" />
+      <Association Name="SysUser_Doctor" Member="SysUser" ThisKey="ID" OtherKey="ID" Type="SysUser" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Image" Member="Images">
+    <Type Name="Image">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TypeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ImageURL" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="Image_RequestedItem" Member="RequestedItem" ThisKey="ID" OtherKey="ID" Type="RequestedItem" Cardinality="One" />
+      <Association Name="ImageType_Image" Member="ImageType" ThisKey="TypeID" OtherKey="ID" Type="ImageType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ImageTypes" Member="ImageTypes">
+    <Type Name="ImageType">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TypeString" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="ImageType_Image" Member="Images" ThisKey="ID" OtherKey="TypeID" Type="Image" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Kind" Member="Kinds">
+    <Type Name="Kind">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="KindString" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Kind_Treatment" Member="Treatments" ThisKey="ID" OtherKey="KindID" Type="Treatment" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Lab" Member="Labs">
+    <Type Name="Lab">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Lab_LabType" Member="LabTypes" ThisKey="ID" OtherKey="LabID" Type="LabType" />
+      <Association Name="Lab_RequestedItem" Member="RequestedItems" ThisKey="ID" OtherKey="LabID" Type="RequestedItem" />
+      <Association Name="SysUser_Lab" Member="SysUser" ThisKey="ID" OtherKey="ID" Type="SysUser" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LabType" Member="LabTypes">
+    <Type Name="LabType">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="LabID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TypeString" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Lab_LabType" Member="Lab" ThisKey="LabID" OtherKey="ID" Type="Lab" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Patient" Member="Patients">
+    <Type Name="Patient">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EmailAddress" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="City" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DoB" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Patient_RequestedItem" Member="RequestedItems" ThisKey="ID" OtherKey="PatientID" Type="RequestedItem" />
+      <Association Name="Patient_Tooth" Member="Tooths" ThisKey="ID" OtherKey="PatientID" Type="Tooth" />
+      <Association Name="City_Patient" Member="City1" ThisKey="City" OtherKey="ID" Type="City" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Piece" Member="Pieces">
+    <Type Name="Piece">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TypeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Piece_RequestedItem" Member="RequestedItem" ThisKey="ID" OtherKey="ID" Type="RequestedItem" Cardinality="One" />
+      <Association Name="PieceType_Piece" Member="PieceType" ThisKey="TypeID" OtherKey="ID" Type="PieceType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PieceTypes" Member="PieceTypes">
+    <Type Name="PieceType">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TypeString" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="PieceType_Piece" Member="Pieces" ThisKey="ID" OtherKey="TypeID" Type="Piece" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RequestedItem" Member="RequestedItems">
+    <Type Name="RequestedItem">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="LabID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PatientID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DoctorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Doctor_RequestedItem" Member="Doctor" ThisKey="DoctorID" OtherKey="ID" Type="Doctor" IsForeignKey="true" />
+      <Association Name="Image_RequestedItem" Member="Image" ThisKey="ID" OtherKey="ID" Type="Image" IsForeignKey="true" />
+      <Association Name="Lab_RequestedItem" Member="Lab" ThisKey="LabID" OtherKey="ID" Type="Lab" IsForeignKey="true" />
+      <Association Name="Patient_RequestedItem" Member="Patient" ThisKey="PatientID" OtherKey="ID" Type="Patient" IsForeignKey="true" />
+      <Association Name="Piece_RequestedItem" Member="Piece" ThisKey="ID" OtherKey="ID" Type="Piece" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Specialty" Member="Specialties">
+    <Type Name="Specialty">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SysUserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SpecialtyTitle" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="SysUser_Specialty" Member="SysUser" ThisKey="SysUserID" OtherKey="ID" Type="SysUser" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SysUser" Member="SysUsers">
+    <Type Name="SysUser">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EmailAddress" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="City" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Admin" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Ban" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="SysUser_Doctor" Member="Doctor" ThisKey="ID" OtherKey="ID" Type="Doctor" Cardinality="One" />
+      <Association Name="SysUser_Lab" Member="Lab" ThisKey="ID" OtherKey="ID" Type="Lab" Cardinality="One" />
+      <Association Name="SysUser_Specialty" Member="Specialties" ThisKey="ID" OtherKey="SysUserID" Type="Specialty" />
+      <Association Name="City_SysUser" Member="City1" ThisKey="City" OtherKey="ID" Type="City" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Tooth" Member="Tooths">
+    <Type Name="Tooth">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PatientID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ToothNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="Tooth_Treatment" Member="Treatments" ThisKey="ID" OtherKey="ToothID" Type="Treatment" />
+      <Association Name="Patient_Tooth" Member="Patient" ThisKey="PatientID" OtherKey="ID" Type="Patient" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Treatment" Member="Treatments">
+    <Type Name="Treatment">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DoctorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ToothID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="KindID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Doctor_Treatment" Member="Doctor" ThisKey="DoctorID" OtherKey="ID" Type="Doctor" IsForeignKey="true" />
+      <Association Name="Kind_Treatment" Member="Kind" ThisKey="KindID" OtherKey="ID" Type="Kind" IsForeignKey="true" />
+      <Association Name="Tooth_Treatment" Member="Tooth" ThisKey="ToothID" OtherKey="ID" Type="Tooth" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
